@@ -5,46 +5,41 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Say It</title>
 <style>
-:root { color-scheme: light; --coffee:#493023; --butter:#ffe09a; --milk:#fff9e9; --green:#245b47; --pistachio:#dbe4c6; }
+:root { color-scheme: light; --coffee:#462e24; --butter:#f5d77e; --milk:#fff9e9; --green:#28594a; --table:#d6b98c; }
 * { box-sizing:border-box; }
-body { margin:0; min-height:100svh; display:grid; place-items:center; background:var(--pistachio); color:var(--coffee); font-family:'Trebuchet MS',sans-serif; }
-.app { width:min(100%,440px); min-height:min(100svh,790px); background:var(--milk); border:1px solid #49302330; border-radius:30px; overflow:hidden; }
-header { display:flex; align-items:center; justify-content:space-between; padding:18px 24px; border-bottom:2px solid var(--coffee); }
-h1 { margin:0; font:bold 28px Georgia,serif; }
-.language { font-size:15px; }
-main { padding:22px 20px 18px; display:grid; justify-items:center; gap:18px; }
-.word-card { width:100%; min-height:175px; display:flex; flex-direction:column; align-items:center; justify-content:center; border:2px solid var(--coffee); border-radius:48% 48% 42% 42% / 28% 28% 28% 28%; background:var(--butter); box-shadow:0 6px 0 #49302318; }
-.word { margin:0; font:bold clamp(56px,16vw,76px)/1.15 Georgia,serif; letter-spacing:-3px; }
-.meaning { margin:8px 0 0; font-size:18px; }
-button { font:inherit; cursor:pointer; touch-action:manipulation; }
-.say { width:124px; height:124px; border-radius:50%; background:var(--green); color:var(--milk); border:2px solid var(--coffee); box-shadow:0 5px 0 var(--coffee); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; font-weight:bold; font-size:19px; }
-.actions { display:flex; justify-content:center; gap:12px; width:100%; }
-.actions .say { width:100px; height:100px; flex-shrink:0; }
-.next { background:var(--butter); color:var(--coffee); }
-.deck-position { margin:0; font-size:15px; }
-@media(max-width:360px) { .actions { gap:8px; } .actions .say { width:84px; height:84px; font-size:17px; } }
-.say span { font-size:29px; }
-.say:active { transform:translateY(4px); box-shadow:0 1px 0 var(--coffee); }
+body { margin:0; min-height:100svh; background:var(--table); color:var(--coffee); font-family:"Trebuchet MS",sans-serif; display:grid; place-items:center; }
+.app { width:min(100%,430px); min-height:100svh; background:var(--milk); padding:0 20px 16px; display:flex; flex-direction:column; gap:14px; }
+header { height:62px; display:flex; align-items:center; justify-content:space-between; border-bottom:2px solid var(--coffee); flex-shrink:0; }
+h1 { margin:0; font-size:27px; letter-spacing:-1px; }
+.language { font-size:14px; }
+.word-card { flex:1; min-height:150px; max-height:270px; background:var(--butter); border:2px solid var(--coffee); border-radius:45% 45% 24px 24px; display:flex; flex-direction:column; align-items:center; justify-content:center; margin-top:8px; box-shadow:0 5px 0 var(--coffee); }
+.word { font-family:"Palatino Linotype",Palatino,serif; font-weight:bold; font-size:clamp(43px,12vw,64px); letter-spacing:-2px; line-height:1.1; }
+.meaning { margin:8px 0 0; font-size:17px; }
+button { font:inherit; cursor:pointer; color:inherit; }
+button:focus-visible { outline:3px solid var(--green); outline-offset:5px; }
+.deck-position { margin:0; text-align:center; font-size:14px; }
+.next { width:68px; height:68px; align-self:center; border:2px solid var(--coffee); border-radius:50%; background:var(--butter); font-weight:bold; }
+.next:disabled { opacity:.6; cursor:wait; }
+.actions { display:flex; justify-content:center; gap:12px; flex-shrink:0; }
+.say { flex-shrink:0; align-self:center; width:112px; height:112px; border-radius:50%; border:2px solid var(--coffee); background:var(--green); color:var(--milk); box-shadow:0 5px 0 var(--coffee); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px; font-size:18px; font-weight:bold; }
+.say span { font-size:30px; }
+.say:active { transform:translateY(3px); box-shadow:0 2px 0 var(--coffee); }
 .say:disabled { cursor:wait; opacity:.75; }
-button:focus-visible { outline:3px solid var(--green); outline-offset:6px; }
-.result-panel { width:100%; border:1px solid #49302355; border-radius:12px; padding:14px; background:#fffdf6; }
-#result { white-space:pre-wrap; overflow-wrap:anywhere; font:13px/1.5 'Trebuchet MS',sans-serif; margin:0; }
-.copy { background:transparent; border:1px solid var(--coffee); color:var(--coffee); border-radius:8px; min-height:44px; padding:8px 14px; margin-top:12px; }
-#copy-status { font-size:13px; margin-left:8px; }
-@media(max-width:460px) { .app { border:0; border-radius:0; min-height:100svh; } }
-@media(max-height:720px) { header { padding:12px 20px; } main { padding-top:14px; gap:13px; } .word-card { min-height:130px; } .say { width:100px; height:100px; } }
+.result-panel { border-top:2px dashed #bca27b; padding-top:12px; }
+#result { margin:0; white-space:pre-wrap; overflow-wrap:anywhere; font:13px/1.4 "Trebuchet MS",sans-serif; }
+.copy { background:transparent; border:1px solid var(--coffee); border-radius:18px; padding:8px 15px; min-height:36px; margin-top:10px; font-size:13px; }
+@media(min-width:500px) { .app { min-height:0; height: min(810px, 96svh); border:2px solid var(--coffee); border-radius:30px; overflow:auto; box-shadow:10px 12px 0 #462e2420; } }
+@media(max-height:690px) { .app { gap:10px; } header { height:50px; } .word-card { min-height:125px; margin-top:0; } .word { font-size:48px; } .say { width:94px; height:94px; } #result { font-size:12px; line-height:1.3; } }
 </style>
 </head>
 <body>
-<div class="app">
-<header><h1>Say It</h1><span class="language">French</span></header>
-<main>
-<p class="deck-position" id="deck-position">word 1 of 10</p>
-<section class="word-card" aria-label="Your word"><h2 class="word" lang="fr">merci</h2><p class="meaning">thank you</p></section>
-<div class="actions"><button class="say" id="say" aria-label="🔊 Say it"><span aria-hidden="true">🔊</span>Say it</button><button class="say" id="listen" aria-label="🎤 Listen"><span aria-hidden="true">🎤</span>Listen</button><button class="say next" id="next" aria-label="Next word"><span aria-hidden="true">›</span>Next</button></div>
-<section class="result-panel" aria-label="Result card"><pre id="result" role="status" aria-live="polite" aria-atomic="true"></pre><button class="copy" id="copy">Copy result</button><span id="copy-status" role="status"></span></section>
+<main class="app">
+  <header><h1>Say It<span aria-hidden="true"> ☕</span></h1><span class="language">French</span></header>
+  <p class="deck-position" id="position">word 1 of 10</p>
+  <section class="word-card" aria-label="Your word"><div class="word" lang="fr">merci</div><p class="meaning">thank you</p></section>
+  <div class="actions"><button class="say" id="say"><span aria-hidden="true">🔊</span>Say it</button><button class="say" id="listen"><span aria-hidden="true">🎤</span>Listen</button><button class="next" id="next">Next</button></div>
+  <section class="result-panel" aria-label="Result card"><pre id="result" aria-live="polite"></pre><button class="copy" id="copy">Copy result</button></section>
 </main>
-</div>
 <script>
 const LANG = "fr-FR";
 const WORDS = [
@@ -60,222 +55,165 @@ const WORDS = [
   { word: "livre", meaning: "book" }
 ];
 const PASS_RULE = 'after a reload the card shows this word\'s best % and "PASS on _ of 10"; PASS when 5 of 10 words are 80 % or more.';
+let wordIndex = 0;
+let bestScores = {};
+let storageProblem = '';
+try {
+  const saved = JSON.parse(localStorage.getItem('say-it-scores') || '{}');
+  for (const { word } of WORDS) {
+    if (saved && typeof saved[word] === 'number' && Number.isFinite(saved[word]) && saved[word] >= 0 && saved[word] <= 100) bestScores[word] = saved[word];
+  }
+} catch { storageProblem = 'best scores could not be read — allow this browser to keep scores, then reload'; }
+function saveBest() {
+  const word = WORDS[wordIndex].word;
+  bestScores[word] = Math.max(bestScores[word] || 0, matchPercent(word, heard));
+  try {
+    localStorage.setItem('say-it-scores', JSON.stringify(bestScores));
+    storageProblem = '';
+  } catch { storageProblem = 'best scores could not be kept — allow this browser to keep scores, then try again'; }
+}
 const synth = window.speechSynthesis;
 const say = document.getElementById('say');
 const result = document.getElementById('result');
 const listen = document.getElementById('listen');
-const next = document.getElementById('next');
-let wordIndex = 0;
-let bestScores = Object.create(null);
-let scoresProblem = '';
-try {
-  const saved = JSON.parse(localStorage.getItem('say-it-scores') || '{}');
-  for (const {word} of WORDS) {
-    if (saved && typeof saved[word] === 'number' && Number.isFinite(saved[word]) && saved[word] >= 0 && saved[word] <= 100) bestScores[word] = saved[word];
-  }
-} catch { scoresProblem = 'this browser could not load best scores — allow this browser to keep site data, then reload'; }
-function saveBest() {
-  const word = WORDS[wordIndex].word;
-  if (match === null) return;
-  bestScores[word] = Math.max(bestScores[word] || 0, match);
-  try {
-    localStorage.setItem('say-it-scores', JSON.stringify(bestScores));
-    scoresProblem = '';
-  } catch { scoresProblem = 'this browser could not keep best scores — allow this browser to keep site data, then try again'; }
-}
-next.addEventListener('click', () => {
-  if (busy || listening) return;
-  wordIndex = (wordIndex + 1) % WORDS.length;
-  heard = ''; heardInTime = false; match = null; problem = '';
-  voiceName = 'not spoken yet'; spoken = false;
-  document.querySelector('.word').textContent = WORDS[wordIndex].word;
-  document.querySelector('.meaning').textContent = WORDS[wordIndex].meaning;
-  document.getElementById('deck-position').textContent = 'word ' + (wordIndex + 1) + ' of ' + WORDS.length;
-  document.getElementById('copy-status').textContent = '';
-  render();
-});
-let heard = '';
-let heardInTime = false;
-let match = null;
-let listening = false;
-let recognition;
-let listenTimer;
-let voices = [];
-let voiceName = 'not spoken yet';
-let spoken = false;
-let problem = '';
-let busy = false;
-let pending = null;
-let waitTimer;
-let speechTimer;
-let utterance;
-function matchPercent(expected, actual) {
-  const normalize = text => Array.from(text.normalize('NFC').toLocaleLowerCase('fr').replace(/[\p{P}\p{S}]/gu, '').trim().replace(/\s+/g, ' '));
-  const a = normalize(expected);
-  const b = normalize(actual);
+let heard = '', heardInTime = false;
+let voices = [], voiceName = 'not used yet', spoken = false, problem = '';
+let pending = false, loadTimer, speechTimer, utterance;
+document.querySelector('.word').textContent = WORDS[wordIndex].word;
+document.querySelector('.meaning').textContent = WORDS[wordIndex].meaning;
+function matchPercent(target, transcript) {
+  const normalize = text => text.normalize('NFC').toLocaleLowerCase(LANG)
+    .replace(/[\p{P}\p{S}]/gu, '').replace(/\s+/g, ' ').trim();
+  const normalizedTarget = normalize(target), normalizedHeard = normalize(transcript);
+  if (normalizedTarget && normalizedHeard.split(' ').every(word => word === normalizedTarget)) return 100;
+  const a = Array.from(normalizedTarget), b = Array.from(normalizedHeard);
   if (!a.length || !b.length) return 0;
-  const expectedWords = a.join('').split(' ');
-  const heardWords = b.join('').split(' ');
-  if (heardWords.length % expectedWords.length === 0 &&
-      heardWords.every((word, i) => word === expectedWords[i % expectedWords.length])) return 100;
-  let row = Array.from({length: b.length + 1}, (_, i) => i);
+  let row = Array.from({ length: b.length + 1 }, (_, i) => i);
   for (let i = 1; i <= a.length; i++) {
     const next = [i];
     for (let j = 1; j <= b.length; j++) {
-      next[j] = Math.min(next[j - 1] + 1, row[j] + 1, row[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      next[j] = Math.min(next[j - 1] + 1, row[j] + 1,
+        row[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
     }
     row = next;
   }
   return Math.round(100 * (1 - row[b.length] / Math.max(a.length, b.length)));
 }
 function render() {
-  next.disabled = busy || listening;
-  const passed = WORDS.filter(({word}) => (bestScores[word] || 0) >= 80).length;
-  result.textContent = [
-    'RESULT CARD · Goal 4 · MY DECK',
-    'word: ' + WORDS[wordIndex].word,
-    'I heard: ' + (heard || '___'),
-    'match: ' + (match === null ? '___' : match + ' %'),
-    'best: ' + (bestScores[WORDS[wordIndex].word] === undefined ? '___' : bestScores[WORDS[wordIndex].word] + ' %'),
-    'deck: PASS on ' + passed + ' of 10',
-    'voice: ' + voiceName,
-    'French voices: ' + voices.length,
-    ...((problem || scoresProblem) ? ['problem: ' + [problem, scoresProblem].filter(Boolean).join('; ')] : []),
-    'PASS rule: ' + PASS_RULE,
-    passed >= 5 && !problem && !scoresProblem ? '→ PASS' : '→ NOT YET'
-  ].join('\n');
+  const word = WORDS[wordIndex];
+  document.querySelector('.word').textContent = word.word;
+  document.querySelector('.meaning').textContent = word.meaning;
+  document.getElementById('position').textContent = 'word ' + (wordIndex + 1) + ' of 10';
+  document.getElementById('next').disabled = say.disabled || listen.disabled;
+  const passed = WORDS.filter(item => (bestScores[item.word] || 0) >= 80).length;
+  const blocked = problem || storageProblem;
+  result.textContent = ['RESULT CARD · Goal 4 · MY DECK', 'word: ' + word.word,
+    'I heard: ' + (heardInTime ? heard : 'not yet'),
+    'match: ' + (heardInTime ? matchPercent(word.word, heard) + ' %' : 'not yet'),
+    'best: ' + (bestScores[word.word] || 0) + ' %', 'deck: PASS on ' + passed + ' of 10',
+    ...(blocked ? ['problem: ' + blocked] : []), 'PASS rule: ' + PASS_RULE,
+    passed >= 5 && !blocked ? '→ PASS' : '→ NOT YET'].join('\n');
 }
+document.getElementById('next').addEventListener('click', () => {
+  wordIndex = (wordIndex + 1) % WORDS.length;
+  heard = ''; heardInTime = false; problem = '';
+  render();
+});
 function refreshVoices() {
-  voices = synth ? synth.getVoices().filter(v => /^fr(?:-|$)/i.test(v.lang.replace(/_/g,'-'))) : [];
+  voices = synth ? synth.getVoices().filter(v => v.lang.replaceAll('_','-').toLowerCase().split('-')[0] === LANG.toLowerCase().split('-')[0]) : [];
   render();
-  if (pending && voices.length) { const start = pending; pending = null; clearTimeout(waitTimer); start(); }
+  if (pending && voices.length) speak();
 }
-function finish(message, success = false) {
-  clearTimeout(speechTimer);
-  problem = message;
-  spoken = success;
-  busy = false;
-  say.disabled = false;
-  listen.disabled = false;
-  render();
+function finish(message = '') {
+  clearTimeout(speechTimer); problem = message; say.disabled = false; listen.disabled = false; render();
 }
 function speak() {
+  pending = false; clearTimeout(loadTimer);
   const voice = voices.find(v => v.lang.toLowerCase() === LANG.toLowerCase()) || voices[0];
-  if (!voice) { finish('no voice for French on this computer'); return; }
+  if (!voice || !synth || !window.SpeechSynthesisUtterance) {
+    finish('no voice for French on this computer'); return;
+  }
   voiceName = voice.name + ' (' + voice.lang + ')';
-  render();
   utterance = new SpeechSynthesisUtterance(WORDS[wordIndex].word);
-  utterance.lang = LANG;
-  utterance.voice = voice;
-  utterance.onend = () => { if (busy) finish('',true); };
-  utterance.onerror = () => { if (busy) finish('the browser’s voice could not speak — click 🔊 Say it to try again'); };
+  utterance.lang = LANG; utterance.voice = voice;
+  utterance.onend = () => { spoken = true; finish(); };
+  utterance.onerror = () => { spoken = false; finish('the browser’s voice could not speak — click 🔊 and try again'); };
+  render();
   speechTimer = setTimeout(() => {
-    if (!busy) return;
-    finish('the browser’s voice did not finish — click 🔊 Say it to try again');
-    synth.cancel();
-  },15000);
-  try { synth.speak(utterance); } catch { finish('the browser’s voice could not speak — click 🔊 Say it to try again'); }
+    utterance.onend = null; utterance.onerror = null;
+    synth.cancel(); finish('the browser’s voice did not finish — click 🔊 and try again');
+  }, 15000);
+  try { synth.speak(utterance); } catch { finish('the browser’s voice could not speak — click 🔊 and try again'); }
 }
 say.addEventListener('click', () => {
-  if (busy) return;
-  spoken = false; problem = ''; voiceName = 'waiting for the browser’s voice';
-  busy = true; say.disabled = true; listen.disabled = true;
+  spoken = false; problem = ''; voiceName = 'not used yet'; say.disabled = true; listen.disabled = true;
   refreshVoices();
-  if (!synth || !window.SpeechSynthesisUtterance) { finish('no voice for French on this computer'); return; }
   if (voices.length) speak();
   else {
-    pending = speak;
-    waitTimer = setTimeout(() => { pending = null; refreshVoices(); speak(); },2500);
+    pending = true; render();
+    loadTimer = setTimeout(() => { pending = false; refreshVoices(); speak(); }, 2500);
   }
 });
-function finishListening(message = '') {
-  if (!listening) return;
-  listening = false;
-  clearTimeout(listenTimer);
-  problem = message;
-  listen.disabled = false;
-  say.disabled = false;
-  listen.innerHTML = '<span aria-hidden="true">🎤</span>Listen';
-  render();
-}
 listen.addEventListener('click', () => {
-  if (listening || busy) return;
-  heard = ''; heardInTime = false; match = null; problem = '';
+  heard = ''; heardInTime = false; problem = ''; render();
   const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!Recognition) {
-    problem = "this browser can't listen — use Chrome";
-    render(); return;
-  }
+  if (!Recognition) { problem = "this browser can't listen — use Chrome"; render(); return; }
+  let recognition, timer, ended = false;
   const started = performance.now();
+  const nothing = 'I heard nothing — click 🎤 and say the word once, clearly';
+  function end(message = '') {
+    if (ended) return;
+    ended = true; clearTimeout(timer);
+    problem = message; say.disabled = false; listen.disabled = false;
+    if (recognition) { try { recognition.abort(); } catch {} }
+    render();
+  }
   try {
     recognition = new Recognition();
     recognition.lang = LANG;
     recognition.continuous = false;
     recognition.interimResults = false;
     recognition.maxAlternatives = 1;
-    listening = true;
-    listen.disabled = true; say.disabled = true;
-    listen.innerHTML = '<span aria-hidden="true">🎤</span>Listening…';
     recognition.onresult = event => {
-      if (!listening) return;
-      if (performance.now() - started > 10000) {
-        finishListening('I heard nothing — click 🎤 and say the word once, clearly');
-        recognition.abort(); return;
-      }
+      if (ended) return;
+      if (performance.now() - started > 10000) { end(nothing); return; }
       heard = event.results[0][0].transcript.trim();
-      heardInTime = heard.split(/\s+/).filter(Boolean).length >= 1;
-      match = heardInTime ? matchPercent(WORDS[wordIndex].word, heard) : null;
-      saveBest();
-      finishListening(heardInTime ? '' : 'I heard nothing — click 🎤 and say the word once, clearly');
-      recognition.stop();
+      heardInTime = heard.length > 0;
+      if (heardInTime) saveBest();
+      end(heardInTime ? '' : nothing);
     };
     recognition.onerror = event => {
-      if (!listening) return;
-      let message;
-      if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
-        message = location.protocol === 'file:'
+      const messages = {
+        'not-allowed': location.protocol === 'file:'
           ? 'mic blocked — refresh the page (round arrow), click 🎤, choose Allow while visiting the site'
-          : 'mic blocked — click the icon left of the address, Site settings, Microphone, Allow, then reload';
-      } else if (event.error === 'audio-capture') {
-        message = 'no microphone — plug in headphones with a mic';
-      } else if (event.error === 'no-speech') {
-        message = 'I heard nothing — click 🎤 and say the word once, clearly';
-      } else {
-        message = 'the browser could not listen — click 🎤 to try again';
-      }
-      finishListening(message);
+          : 'mic blocked — click the icon left of the address, Site settings, Microphone, Allow, then reload',
+        'audio-capture': 'no microphone — plug in headphones with a mic',
+        'no-speech': nothing
+      };
+      end(messages[event.error] || 'listening stopped — click 🎤 and try again');
     };
-    recognition.onend = () => {
-      if (listening) finishListening('I heard nothing — click 🎤 and say the word once, clearly');
-    };
-    listenTimer = setTimeout(() => {
-      if (!listening) return;
-      finishListening('I heard nothing — click 🎤 and say the word once, clearly');
-      recognition.abort();
-    }, 10000);
+    recognition.onend = () => end(nothing);
+    say.disabled = true; listen.disabled = true;
+    timer = setTimeout(() => end(nothing), 10000);
     render();
     recognition.start();
-  } catch {
-    if (listening) finishListening('the browser could not listen — click 🎤 to try again');
-    else { problem = 'the browser could not listen — click 🎤 to try again'; render(); }
-  }
+  } catch { end('listening could not start — click 🎤 and try again'); }
 });
 if (synth) synth.addEventListener('voiceschanged', refreshVoices);
 refreshVoices();
 document.getElementById('copy').addEventListener('click', async () => {
   const text = result.textContent;
-  const status = document.getElementById('copy-status');
   try {
-    if (navigator.clipboard && window.isSecureContext) await navigator.clipboard.writeText(text);
-    else {
-      const field = document.createElement('textarea');
-      field.value = text; field.style.position = 'fixed'; field.style.opacity = '0';
-      document.body.appendChild(field); field.select();
-      const copied = document.execCommand('copy'); field.remove();
-      if (!copied) throw new Error('copy');
-    }
-    status.textContent = 'Copied';
-  } catch { status.textContent = 'Select the result text to copy it.'; }
+    if (!navigator.clipboard) throw new Error('fallback');
+    await navigator.clipboard.writeText(text);
+  } catch {
+    const field = document.createElement('textarea'); field.value = text;
+    field.style.position = 'fixed'; field.style.opacity = '0'; document.body.append(field); field.select();
+    const copied = document.execCommand('copy'); field.remove();
+    if (!copied) { document.getElementById('copy').textContent = 'Select the card to copy'; return; }
+  }
+  document.getElementById('copy').textContent = 'Copied!';
+  setTimeout(() => { document.getElementById('copy').textContent = 'Copy result'; }, 1800);
 });
 </script>
 </body>
